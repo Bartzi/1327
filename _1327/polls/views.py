@@ -2,11 +2,13 @@ import datetime
 
 from django.contrib import messages
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect, Http404
+from django.forms import modelformset_factory
+from django.http import HttpResponseRedirect, Http404, HttpResponseForbidden
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import render
+from _1327.polls.forms import PollForm
 
-from _1327.polls.models import Poll
+from _1327.polls.models import Poll, Choice
 from _1327.user_management.shortcuts import get_object_or_error
 
 
@@ -87,6 +89,31 @@ def vote(request, poll_id):
 		{
 			"poll": poll,
 			"widget": "checkbox" if poll.is_multiple_choice_question else "radio"
+		}
+	)
+
+
+def create(request):
+	if not request.user.has_perm('polls.add_poll'):
+		return HttpResponseForbidden()
+
+	if request.method == 'POST':
+		form = PollForm(request.POST)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect(reverse('polls:list'))
+	else:
+		form = PollForm()
+
+	ChoiceFormset = modelformset_factory(Choice, exclude=('index', 'poll', 'votes'))
+	formset = ChoiceFormset(queryset=Choice.objects.filter(poll=form.instance.id))
+
+	return render(
+		request,
+		'polls_create.html',
+		{
+			"form": form,
+			"formset": formset,
 		}
 	)
 

@@ -1,0 +1,30 @@
+{% extends 'base_without_sidebar.html' %}
+{% load bootstrap3 %}
+{% load staticfiles %}
+
+{% load i18n %}
+
+{% block title %}
+	{% trans "Create new Poll" %}
+{% endblock %}
+
+{% block content %}
+    <form action="{% url "polls:create" %}" method="post" class="form-horizontal" role="form" id="poll-form">
+		{% bootstrap_form form layout='horizontal' %}
+		{% csrf_token %}
+		{% buttons %}
+		<div class="col-md-offset-2 col-md-9">
+			<button type="submit" class="btn btn-primary">
+				{% bootstrap_icon "floppy-disk" %} {% trans 'Create' %}
+			</button>
+		</div>
+		{% endbuttons %}
+        {% bootstrap_formset formset layout="horizontal" %}
+	</form>
+
+	<script type="text/javascript" src="{% static "js/jquery.formset.js" %}"></script>
+	<script>
+		$('input[placeholder~=date]').datepicker({dateFormat: 'dd/mm/yy'});
+	</script>
+
+{% endblock %}
