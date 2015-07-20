@@ -22,7 +22,7 @@
             <th>{% trans "Percentage" %}</th>
             <th>{% trans "Votes" %}</th>
         </tr>
-        {% for choice in poll.choices.all %}
+        {% for choice in poll.sorted_choices %}
             <tr class="choice-row">
                 <td>{{ choice.text }}</td>
                 <td>

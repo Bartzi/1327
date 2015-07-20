@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import Sum
+from django.utils.translation import ugettext_lazy as _
 
 from _1327.user_management.models import UserProfile
 
@@ -22,12 +23,16 @@ class Poll(models.Model):
 			(QUESTION_VIEW_PERMISSION_NAME, 'User/Group is allowed to view that question'),
 		)
 
+	def sorted_choices(self):
+		return self.choices.order_by('index')
+
 
 class Choice(models.Model):
 	poll = models.ForeignKey(Poll, related_name="choices")
 	text = models.CharField(max_length=255)
 	description = models.TextField(default="", blank=True)
 	votes = models.IntegerField(default=0)
+	index = models.IntegerField(default=0, verbose_name=_("ordering index"))
 
 	def __str__(self):
 		return self.text
