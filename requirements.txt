@@ -12,3 +12,8 @@ django-polymorphic >= 0.8, < 0.9
 django-sendfile >= 0.3.6
 
 Markdown >= 2.6.0
+
+
+gunicorn >= 19.6.0
+dj-database-url >= 0.4.1
+whitenoise >= 3.2.2

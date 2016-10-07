@@ -11,6 +11,7 @@ import os
 import sys
 
 from django.core.wsgi import get_wsgi_application
+from whitenoise.django import DjangoWhiteNoise
 
 sys.stderr = sys.stdout
 
@@ -22,3 +23,4 @@ sys.path = [projectdir] + sys.path
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "_1327.settings")
 
 application = get_wsgi_application()
+application = DjangoWhiteNoise(application)
