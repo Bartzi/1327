@@ -1,0 +1,7 @@
+{
+  "engines": {},
+  "devDependencies": {
+    "coffee": "^3.2.5",
+    "less": "^2.7.1"
+  }
+}
