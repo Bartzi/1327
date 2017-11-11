@@ -1,0 +1,42 @@
+{% extends 'base_without_sidebar.html' %}
+
+{% load i18n %}
+{% load guardian_tags %}
+{% load bootstrap3 %}
+
+{% block title %}
+	Details for Sensor {{ sensor.name }}
+{% endblock %}
+
+{% block content %}
+    <div id="sensor-plot" style="width:100%;height:100%;"></div>
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script src="https://cdn.plot.ly/plotly-1.2.0.min.js"></script>2
+
+    <script>
+        var layout = {
+            yaxis: {title: "{{ sensor.unit_of_measurement }}"},       // set the y axis title
+            xaxis: {
+                showgrid: false               // remove the x-axis grid lines
+            },
+            margin: {                           // update the left, bottom, right, top margin
+                l: 50, b: 20, r: 10, t: 20
+            }
+        };
+
+
+        var plotArea = document.getElementById('sensor-plot');
+        Plotly.plot(
+            plotArea,
+            [{
+                x: {{ times|safe }},
+                y: {{ values }}
+            }],
+            layout
+        );
+    </script>
+
+{% endblock %}

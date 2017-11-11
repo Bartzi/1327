@@ -93,7 +93,8 @@ INSTALLED_APPS = [
 	'_1327.information_pages',
 	'_1327.minutes',
 	'_1327.polls',
-	'_1327.shortlinks'
+	'_1327.shortlinks',
+	'_1327.sensors',
 ]
 
 MIDDLEWARE = [

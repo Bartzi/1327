@@ -1,0 +1,45 @@
+{% extends 'base_without_sidebar.html' %}
+
+{% load i18n %}
+{% load guardian_tags %}
+{% load bootstrap3 %}
+
+{% block title %}
+	{% trans "Sensors" %}
+{% endblock %}
+
+{% block content %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-title">
+                {% trans "Sensors you can inspect" %}
+            </div>
+        </div>
+        {% if sensors|length == 0 %}
+            <div class="panel-body">
+                <em>{% trans "There are no sensors you can inspect." %}</em>
+            </div>
+        {% else %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="col-xs-7">{% trans "Name" %}</th>
+                        <th class="col-xs-3">{% trans "Current Value" %}</th>
+                        <th class="col-xs-2"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sensor in sensors %}
+                        <tr>
+                            <td>{{ sensor.name }}</td>
+                            <td>{{ sensor.latest_reading }}</td>
+                            <td class="text-right">
+                                <a class="btn btn-xs btn-info" href="{% url 'sensors:details' sensor.uuid %}">Details</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+{% endblock %}

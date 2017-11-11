@@ -31,6 +31,8 @@ urlpatterns = [
 	url(r'^shortlink/create$', shortlinks_views.shortlink_create, name='shortlink_create'),
 	url(r'^shortlink/delete$', shortlinks_views.shortlink_delete, name='shortlink_delete'),
 
+	url(r'^sensors/', include('_1327.sensors.urls')),
+
 	url(r'^admin/', admin.site.urls),
 	url(r'^hijack/', include('hijack.urls')),
 ]
