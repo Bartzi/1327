@@ -1,6 +1,6 @@
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404, render
 
 # Create your views here.
 from guardian.shortcuts import get_objects_for_user
