@@ -49,12 +49,13 @@ def handle_edit(request, document, formset=None, initial=None, creation_group=No
 				document.url_title = document.url_title[:-1]
 
 			# save the document and also save the user and the comment the user added
-			with transaction.atomic(), revisions.create_revision():
+			with transaction.atomic():
 				document.handle_edit(cleaned_data)
-				document.save()
-				document.save_formset(formset)
-				revisions.set_user(request.user)
-				revisions.set_comment(cleaned_data['comment'])
+				with revisions.create_revision():
+					document.save()
+					document.save_formset(formset)
+					revisions.set_user(request.user)
+					revisions.set_comment(cleaned_data['comment'])
 
 			if not document.has_perms() or creation:
 				document.set_all_permissions(cleaned_data['group'])
