@@ -246,6 +246,7 @@ TEMPLATES = [
 				'_1327.main.context_processors.can_create_minutes',
 				'_1327.main.context_processors.can_create_poll',
 				'_1327.main.context_processors.can_change_menu_items',
+				'_1327.main.context_processors.emoji_data'
 			],
 		},
 	},

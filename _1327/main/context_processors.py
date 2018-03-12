@@ -2,6 +2,7 @@ from django.conf import settings
 from django.utils import translation
 from guardian.shortcuts import get_objects_for_user
 
+from _1327.documents.markdown_emoji_extension import emojis_path, emojis_set
 from _1327.main.models import MenuItem
 from . import models
 
@@ -75,3 +76,11 @@ def can_create_poll(request):
 
 def can_change_menu_items(request):
 	return {'CAN_CHANGE_MENU_ITEMS': request.user.is_superuser or len(get_objects_for_user(request.user, MenuItem.CHANGE_CHILDREN_PERMISSION_NAME, klass=MenuItem)) > 0}
+
+
+def emoji_data(request):
+	return {
+		'emoji_path': emojis_path,
+		'emojis': emojis_set,
+	}
+

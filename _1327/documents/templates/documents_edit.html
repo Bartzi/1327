@@ -132,6 +132,31 @@
 	</div>
 </div>
 
+<div class="modal fade ontop" id="selectEmoji" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<div class="modal-title">{% trans "Select Emoji" %}</div>
+			</div>
+			<div class="modal-body">
+				{% for emoji in emojis %}
+					<button>
+						<span data-emoji="{{ emoji }}">
+							<div class="emoji-choice" style="background: no-repeat url({{ emoji_path }}{{ emoji }}.png) 0; background-position: center; background-size: 28px"></div>
+						</span>
+					</button>
+				{% endfor %}
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" id="setInternalLinkDestination">{% trans "OK" %}</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 <div class="modal fade ontop" id="autosaveErrorDialog" role="dialog" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -325,6 +350,20 @@
 								$("#id_text").focus();
 							}
 						});
+					}
+				}]
+			},
+			{
+				name: "Emoji",
+				data: [{
+					name: "cmdAddEmoji",
+					toggle: false,
+					title: "Add Emoji",
+					icon: "fa fa-smile",
+					callback: function (e) {
+
+						var modalItem = $('#selectEmoji');
+						modalItem.modal();
 					}
 				}]
 			}]
